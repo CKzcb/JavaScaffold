@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>ape-user</module>
+        <module>ape-common</module>
     </modules>
 
     <properties>
