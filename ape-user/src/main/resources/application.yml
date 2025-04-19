@@ -2,13 +2,26 @@ server:
   port: 9090
 spring:
   datasource:
-    name: root
     password: Zhuchb@0509
+    username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/java_scaffold?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/java_scaffold?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
       min-idle: 5
       max-active: 20
       max-wait: 60000
+      stat-view-servlet:
+        login-password: 123456
+        login-username: admin
+        url-pattern: /druid/*
+        enabled: true
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 500
+user:
+  service:
+    lock: true
