@@ -1,13 +1,15 @@
 package com.ckzcb.ape.user.service.impl;
 
+import com.ckzcb.ape.common.redis.utils.RedisList;
 import com.ckzcb.ape.user.entity.dto.UserDto;
 import com.ckzcb.ape.user.entity.po.User;
 import com.ckzcb.ape.user.mapper.UserMapper;
 import com.ckzcb.ape.user.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName UserServiceImpl
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userPoMapper;
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisList redisList;
 
     @Override
     public int addUser(UserDto userDto) {
@@ -32,7 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public void test() {
-        redisTemplate.opsForValue().set("test", "test");
-        System.out.println(redisTemplate.opsForValue().get("test"));
+        User userPo = new User();
+        userPo.setAge(1);
+        userPo.setName("test");
+        redisList.rPush("zzzz", userPo);
+        System.out.println(redisList.lPop("zzzz", 1000, TimeUnit.MILLISECONDS));
+        System.out.println(System.currentTimeMillis());
+        System.out.println(redisList.lPop("zzzz", 10000, TimeUnit.MILLISECONDS));
+        System.out.println(System.currentTimeMillis());
     }
 }
