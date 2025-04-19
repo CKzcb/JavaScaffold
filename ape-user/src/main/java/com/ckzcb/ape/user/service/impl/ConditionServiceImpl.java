@@ -10,6 +10,7 @@ import com.ckzcb.ape.user.service.ConditionService;
  * @Version 1.0
  */
 public class ConditionServiceImpl implements ConditionService {
+
     @Override
     public void showTest() {
         System.out.println("showTest");

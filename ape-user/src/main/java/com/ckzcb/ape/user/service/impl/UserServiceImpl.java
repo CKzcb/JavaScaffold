@@ -6,6 +6,7 @@ import com.ckzcb.ape.user.mapper.UserMapper;
 import com.ckzcb.ape.user.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,11 +21,18 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userPoMapper;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public int addUser(UserDto userDto) {
         User userPo = new User();
         BeanUtils.copyProperties(userDto, userPo);
         return userPoMapper.insert(userPo);
+    }
+
+    public void test() {
+        redisTemplate.opsForValue().set("test", "test");
+        System.out.println(redisTemplate.opsForValue().get("test"));
     }
 }

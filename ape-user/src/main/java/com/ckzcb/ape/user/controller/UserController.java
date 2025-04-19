@@ -34,4 +34,9 @@ public class UserController {
         conditionService.showTest();
         return userService.addUser(userDto);
     }
+
+    @RequestMapping("/test")
+    private void test() {
+        userService.test();
+    }
 }

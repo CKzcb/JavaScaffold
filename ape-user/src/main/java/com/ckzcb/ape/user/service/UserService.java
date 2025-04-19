@@ -11,4 +11,6 @@ import com.ckzcb.ape.user.entity.dto.UserDto;
  */
 public interface UserService {
     int addUser(UserDto userDto);
+
+    void test();
 }

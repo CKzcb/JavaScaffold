@@ -22,6 +22,12 @@ spring:
           enabled: true
           log-slow-sql: true
           slow-sql-millis: 500
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: redistest
+      database: 0
 user:
   service:
     lock: true
