@@ -24,8 +24,8 @@ public class RedisString {
         redisTemplate.opsForValue().set(key, value);
     }
 
-    public void setNx(String key, Object value, long time, TimeUnit timeUnit) {
-        redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit);
+    public Boolean setNx(String key, Object value, long time, TimeUnit timeUnit) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit);
     }
 
     public void setEx(String key, Object value, long time, TimeUnit timeUnit) {
@@ -36,8 +36,8 @@ public class RedisString {
         return redisTemplate.opsForValue().get(key);
     }
 
-    public boolean del(String key) {
-        return Boolean.TRUE.equals(redisTemplate.delete(key));
+    public Boolean del(String key) {
+        return redisTemplate.delete(key);
     }
 
     public Integer desc(String key) {
