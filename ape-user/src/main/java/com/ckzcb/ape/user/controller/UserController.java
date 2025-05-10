@@ -6,10 +6,7 @@ import com.ckzcb.ape.user.service.ConditionService;
 import com.ckzcb.ape.user.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName UserController
@@ -35,8 +32,10 @@ public class UserController {
         return userService.addUser(userDto);
     }
 
+
     @RequestMapping("/test")
-    private void test() {
-        userService.test();
+    private String test(@RequestParam("id") String id) {
+        userService.test(id);
+        return "ok";
     }
 }

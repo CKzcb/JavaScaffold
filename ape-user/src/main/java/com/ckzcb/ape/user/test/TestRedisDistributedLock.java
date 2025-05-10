@@ -5,8 +5,6 @@ import jakarta.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @ClassName TestRedisDistributedLock
  * @Description
@@ -21,8 +19,5 @@ public class TestRedisDistributedLock implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(redisDistributedLock.lock("zzzz", "1", 10, TimeUnit.SECONDS));
-        System.out.println(redisDistributedLock.lock("zzzz", "1", 10, TimeUnit.SECONDS));
-        System.out.println(redisDistributedLock.spinLock("zzzz", "1", 10, TimeUnit.SECONDS));
     }
 }

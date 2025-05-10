@@ -1,6 +1,7 @@
 package com.ckzcb.ape.user.service;
 
 import com.ckzcb.ape.user.entity.dto.UserDto;
+import com.ckzcb.ape.user.entity.po.User;
 
 /**
  * @ClassName UserService
@@ -12,5 +13,5 @@ import com.ckzcb.ape.user.entity.dto.UserDto;
 public interface UserService {
     int addUser(UserDto userDto);
 
-    void test();
+    User test(String id);
 }

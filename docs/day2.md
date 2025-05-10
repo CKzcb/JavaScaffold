@@ -69,3 +69,28 @@ private ApplicationContext context;
 
 ## redis分布式锁
 
+## Cacheable
+
+Redis缓存配置（示例）
+在application.properties中配置Redis：
+
+spring.cache.type=redis
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.cache.redis.time-to-live=600000 # 缓存过期时间（毫秒）
+
+@Configuration
+public class RedisConfig {
+
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()))
+                .entryTtl(Duration.ofMinutes(10));  // 统一过期时间
+                
+        return RedisCacheManager.builder(connectionFactory)
+                .cacheDefaults(config)
+                .build();
+    }
+
+}

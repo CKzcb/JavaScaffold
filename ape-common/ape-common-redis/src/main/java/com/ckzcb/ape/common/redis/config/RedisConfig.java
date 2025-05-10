@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -73,6 +76,13 @@ public class RedisConfig {
 
         // 返回新的Jackson2JsonRedisSerializer实例，使用配置好的ObjectMapper
         return new Jackson2JsonRedisSerializer<>(objectMapper, Object.class);
+    }
+
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+
+        return new RedisCacheManager(redisCacheWriter, RedisCacheConfiguration.defaultCacheConfig());
     }
 
 }
