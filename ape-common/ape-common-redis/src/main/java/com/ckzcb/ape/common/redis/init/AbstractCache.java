@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AbstractCache {
     public void init() {
-        System.out.println("初始化缓存");
+
     }
 
     public <T> T get(String key) {
