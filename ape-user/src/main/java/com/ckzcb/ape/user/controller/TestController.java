@@ -1,7 +1,8 @@
 package com.ckzcb.ape.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,9 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
+
+    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+
     @RequestMapping("/test")
-    public String test(@RequestParam String id) {
-        System.out.println(">>>>>>>>>>>>>>>>>" + id);
+    public String test() {
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>.");
+        for (int i = 0; i < 10; i++) {
+            log.info("测试日志填充: {}", i);
+        }
         return "test";
     }
 }
