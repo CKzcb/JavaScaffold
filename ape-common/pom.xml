@@ -15,6 +15,7 @@
         <module>ape-common-web</module>
         <module>ape-common-mybatisplus</module>
         <module>ape-common-redis</module>
+        <module>ape-common-log</module>
     </modules>
 
     <properties>

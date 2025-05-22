@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--monitorInterval 检测日志配置的修改，文件重新加载的间隔时间，单位为秒-->
+<configuration status="ALL" monitorInterval="5">
+    <!--日志级别排序  OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALl -->
+    <!--变量配置, 全局配置变量 用于后面的日志格式处理-->
+    <properties>
+        <!--格式化输出：%d 日期，%t:线程名，%-5level: 级别从左显示5个字符宽度-->
+        <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} --- [%t] %-5level %logger{36} - %msg%n"/>
+        <property name="FILE_PATH" value="./logs"/>
+        <property name="FILE_NAME" value="frame"/>
+    </properties>
+
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <!--控制台输出-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </console>
+        <RollingFile name="rollingFile"
+                     fileName="${FILE_PATH}/a.log"
+                     filePattern="${FILE_PATH}/a-%d{yyyy-MM-dd-HH}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <!--日志文件保留天数-->
+            <!--<timeBasedFileNamingAndTriggeringPolicy
+                    maxHistory="7"/>-->
+            <!-- 补充到 RollingFile 配置中 -->
+            <DefaultRolloverStrategy max="24">
+                <Delete basePath="${FILE_PATH}" maxDepth="1">
+                    <IfFileName glob="${FILE_NAME}-*.log"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <root level="ERROR">
+            <appender-ref ref="console"/>
+            <appender-ref ref="rollingFile"/>
+        </root>
+    </loggers>
+</configuration>
