@@ -13,6 +13,8 @@
 *.iws
 *.iml
 *.ipr
+logs/**
+.idea/**
 
 ### Eclipse ###
 .apt_generated
@@ -40,4 +42,5 @@ build/
 .DS_Store
 /.idea/
 /logs/
+/.idea/
 /.idea/
