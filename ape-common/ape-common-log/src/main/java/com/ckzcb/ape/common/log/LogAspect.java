@@ -37,9 +37,10 @@ public class LogAspect {
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---");
-        System.out.println("+++++++++++++++");
 
         // 调用目标方法并返回结果
-        return joinPoint.proceed();
+        Object result = joinPoint.proceed();
+        logger.info(">>>>>>>>>>>>>>>>>>point cut>>>>>>>> end");
+        return result;
     }
 }

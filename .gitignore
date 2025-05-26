@@ -15,6 +15,10 @@
 *.ipr
 logs/**
 .idea/**
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/**/target/
+!**/src/test/**/**/target/
 
 ### Eclipse ###
 .apt_generated
