@@ -2,6 +2,7 @@ package com.ckzcb.ape.user.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,10 @@ public class TestController {
             log.info("测试日志填充: {}", i);
         }
         return "test";
+    }
+
+    @RequestMapping("/test2")
+    public String test2(@RequestBody String name) {
+        return "hello " + name;
     }
 }

@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 /**
  * @ClassName LogAspect
  * @Description
@@ -37,7 +39,7 @@ public class LogAspect {
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---");
-
+        logger.info(">>>>>>>>>>>>>>>>>>point cut>>>>>>>> start, args:{}", Arrays.stream(joinPoint.getArgs()).toArray());
         // 调用目标方法并返回结果
         Object result = joinPoint.proceed();
         logger.info(">>>>>>>>>>>>>>>>>>point cut>>>>>>>> end");
