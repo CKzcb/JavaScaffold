@@ -11,6 +11,7 @@
     <modules>
         <module>ape-user</module>
         <module>ape-common</module>
+        <module>ape-test</module>
     </modules>
 
     <properties>
