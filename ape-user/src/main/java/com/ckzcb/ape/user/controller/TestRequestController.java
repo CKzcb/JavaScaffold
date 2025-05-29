@@ -1,6 +1,7 @@
 package com.ckzcb.ape.user.controller;
 
 import com.ckzcb.ape.user.entity.dto.UserDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -36,8 +37,8 @@ public class TestRequestController {
      * (1) 路径变量：@PathVariable
      */
     @RequestMapping("/t4/{id}")
-    public String t4(@PathVariable("id") String id) {
-        return "t4" + id;
+    public String t4(HttpServletRequest request, @PathVariable("id") String id) {
+        return "t4" + id + ":" + request.getRequestURL();
     }
 
     /**

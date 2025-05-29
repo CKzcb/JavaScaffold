@@ -29,9 +29,9 @@ public class CacheUtil<K, V> {
             })
             .build(new CacheLoader<K, V>() {
                 @Override
-                public V load(K key) {
+                public V load(K key) throws Exception {
                     System.out.println(">>>>>>>>load>>>>>>> key: " + key);
-                    return null;
+                    return (V) "t";
                 }
             });
 
@@ -73,7 +73,7 @@ public class CacheUtil<K, V> {
         Thread.sleep(5000);
         System.out.println(cacheUtil.getCache("1", true));
         Thread.sleep(10000);
-        System.out.println(cacheUtil.getCache("1", true));
+        System.out.println(cacheUtil.getCache("1"));
         System.out.println(cacheUtil.getCache("222", key -> "ggggggggggg"));
     }
 }
