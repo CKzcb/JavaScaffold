@@ -2,6 +2,7 @@ com\ckzcb\ape\user\service\UserService.class
 com\ckzcb\ape\user\service\impl\UserServiceImpl.class
 com\ckzcb\ape\user\UserApplication.class
 com\ckzcb\ape\user\controller\TestRequestController.class
+com\ckzcb\ape\user\websocket\ChickenWebsocket.class
 com\ckzcb\ape\user\controller\TestController.class
 com\ckzcb\ape\user\entity\dto\UserDto.class
 Test.class

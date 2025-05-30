@@ -1,0 +1,27 @@
+package com.ckzcb.ape.common.ws.models;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * @ClassName WsMessage
+ * @Description
+ * @Author 蛋白质先生
+ * @Date 2025/5/30 15:28
+ * @Version 1.0
+ */
+@Getter
+@Setter
+public class WsMessage {
+    private WsType type;
+    private String message;
+    private String fromSessionId;
+    private String toSessionId;
+
+    public WsMessage(WsType type, String message, String fromSessionId, String toSessionId) {
+        this.type = type;
+        this.message = message;
+        this.fromSessionId = fromSessionId;
+        this.toSessionId = toSessionId;
+    }
+}
