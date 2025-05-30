@@ -19,9 +19,11 @@ public class WsMessage implements Serializable {
     private String message;
     private String fromSessionId;
     private String toSessionId;
+    private String sid;
 
-    public WsMessage(WsType type, String message, String fromSessionId, String toSessionId) {
+    public WsMessage(WsType type, String sid, String message, String fromSessionId, String toSessionId) {
         this.type = type;
+        this.sid = sid;
         this.message = message;
         this.fromSessionId = fromSessionId;
         this.toSessionId = toSessionId;
