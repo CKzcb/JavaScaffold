@@ -2,6 +2,7 @@ package com.ckzcb.ape.user.websocket;
 
 import com.ckzcb.ape.common.ws.config.WsServerConfig;
 import com.ckzcb.ape.common.ws.models.WsMessage;
+import com.ckzcb.ape.common.ws.models.WsMessageDecoder;
 import com.ckzcb.ape.common.ws.models.WsMessageEncoder;
 import com.ckzcb.ape.common.ws.models.WsType;
 import jakarta.websocket.*;
@@ -9,6 +10,7 @@ import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -26,6 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 @ServerEndpoint(value = "/chicken/{sid}/socket", configurator = WsServerConfig.class,
         encoders = {WsMessageEncoder.class})
+@ServletComponentScan
 public class ChickenWebsocket {
     private static final Logger logger = LoggerFactory.getLogger(ChickenWebsocket.class);
 
@@ -88,10 +91,31 @@ public class ChickenWebsocket {
     @OnMessage
     public void onMessage(String message) {
         logger.info("server receive from client, {} -> {}", userId, message);
-        for (ChickenWebsocket chickenWebsocket : chickenWebsocketMap.getOrDefault(sid, Collections.emptyMap()).values()) {
-            chickenWebsocket.sendMessage(
-                    new WsMessage(WsType.TEXT, this.sid, message, userId, chickenWebsocket.userId),
-                    chickenWebsocket.session);
+        try {
+            WsMessage wsMessage = WsMessageDecoder.decode(message);
+            handMessage(wsMessage);
+        } catch (Exception e) {
+            logger.error("解析消息失败", e);
+            throw new RuntimeException(e);
         }
     }
+
+    private void handMessage(WsMessage message) {
+        switch (message.getType()) {
+            case TEXT:
+                for (ChickenWebsocket chickenWebsocket : chickenWebsocketMap.getOrDefault(sid, Collections.emptyMap()).values()) {
+                    chickenWebsocket.sendMessage(
+                            new WsMessage(WsType.TEXT, this.sid, message.getMessage(), userId, chickenWebsocket.userId),
+                            chickenWebsocket.session);
+                }
+                break;
+            case PING:
+                sendMessage(new WsMessage(WsType.PONG, this.sid, "", userId, ""), session);
+                break;
+            default:
+                break;
+        }
+    }
+
+
 }

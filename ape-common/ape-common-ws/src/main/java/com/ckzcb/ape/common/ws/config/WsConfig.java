@@ -3,6 +3,7 @@ package com.ckzcb.ape.common.ws.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 /**
  * @ClassName WsConfig
@@ -13,6 +14,14 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  */
 @Configuration
 public class WsConfig {
+
+    @Bean
+    public ServletServerContainerFactoryBean servletServerContainerFactoryBean() {
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+//        container.setMaxSessionIdleTimeout(600000L);
+        return container;
+    }
+
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();

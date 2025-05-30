@@ -7,6 +7,7 @@ import com.ckzcb.ape.user.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @ClassName UserController
@@ -37,5 +38,10 @@ public class UserController {
     private String test(@RequestParam("id") String id) {
         userService.test(id);
         return "ok";
+    }
+
+    @GetMapping("/websocket")
+    public ModelAndView websocket() {
+        return new ModelAndView("forward:/websocket.html");
     }
 }

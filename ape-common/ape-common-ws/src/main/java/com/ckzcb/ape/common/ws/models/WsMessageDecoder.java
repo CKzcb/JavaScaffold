@@ -1,0 +1,18 @@
+package com.ckzcb.ape.common.ws.models;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * @ClassName WsMessageDecoder
+ * @Description
+ * @Author 蛋白质先生
+ * @Date 2025/5/30 15:56
+ * @Version 1.0
+ */
+public class WsMessageDecoder {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    public static WsMessage decode(String message) throws Exception {
+        return objectMapper.readValue(message, WsMessage.class);
+    }
+}

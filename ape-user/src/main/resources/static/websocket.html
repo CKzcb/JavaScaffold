@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket 客户端</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .input-group button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #messageArea {
+            height: 300px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .system {
+            background-color: #f0f0f0;
+        }
+        .text {
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <input type="text" id="userId" placeholder="请输入用户ID">
+            <input type="text" id="sid" placeholder="请输入房间ID">
+            <button onclick="connect()">连接</button>
+            <button onclick="disconnect()">断开</button>
+        </div>
+        <div class="input-group">
+            <input type="text" id="messageInput" placeholder="请输入消息" style="width: 70%;">
+            <button onclick="sendMessage()">发送</button>
+        </div>
+        <div id="messageArea"></div>
+    </div>
+
+    <script>
+        let ws = null;
+        let userId = '';
+
+        function connect() {
+            userId = document.getElementById('userId').value.trim();
+            const sid = document.getElementById('sid').value.trim();
+            
+            if (!userId || !sid) {
+                alert('请输入用户ID和房间ID');
+                return;
+            }
+
+            if (ws) {
+                alert('已经连接了');
+                return;
+            }
+
+            const wsUrl = `ws://${window.location.host}/chicken/${sid}/socket?userId=${userId}`;
+            ws = new WebSocket(wsUrl);
+
+            ws.onopen = function() {
+                appendMessage('系统', '连接成功');
+                // 启动心跳检测
+                startHeartbeat();
+            };
+
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'SYSTEM') {
+                    appendMessage('系统', data.message);
+                } else if (data.type === 'TEXT') {
+                    appendMessage(data.fromSessionId, data.message);
+                }
+            };
+
+            ws.onclose = function() {
+                appendMessage('系统', '连接已关闭');
+                ws = null;
+            };
+
+            ws.onerror = function(error) {
+                appendMessage('系统', '连接错误: ' + error);
+                ws = null;
+            };
+        }
+
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+        }
+
+        function appendMessage(sender, message) {
+            const messageArea = document.getElementById('messageArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender === '系统' ? 'system' : 'text'}`;
+            messageDiv.textContent = `${sender}: ${message}`;
+            messageArea.appendChild(messageDiv);
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        function startHeartbeat() {
+            setInterval(() => {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    const pingMessage = {
+                        type: 'PING',
+                        sid: document.getElementById('sid').value.trim(),
+                        message: '',
+                        fromSessionId: userId,
+                        toSessionId: ''
+                    };
+                    ws.send(JSON.stringify(pingMessage));
+                }
+            }, 30000); // 每30秒发送一次心跳
+        }
+
+        function sendMessage() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                alert('请先连接WebSocket');
+                return;
+            }
+
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                alert('请输入消息内容');
+                return;
+            }
+
+            const textMessage = {
+                type: 'TEXT',
+                sid: document.getElementById('sid').value.trim(),
+                message: message,
+                fromSessionId: userId,
+                toSessionId: ''
+            };
+
+            ws.send(JSON.stringify(textMessage));
+            messageInput.value = ''; // 清空输入框
+        }
+    </script>
+</body>
+</html>

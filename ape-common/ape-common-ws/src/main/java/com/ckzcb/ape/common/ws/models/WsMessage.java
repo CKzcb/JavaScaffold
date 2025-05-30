@@ -17,9 +17,12 @@ import java.io.Serializable;
 public class WsMessage implements Serializable {
     private WsType type;
     private String message;
-    private String fromSessionId;
-    private String toSessionId;
+    private String fromSessionId = "";
+    private String toSessionId = "";
     private String sid;
+
+    public WsMessage() {
+    }
 
     public WsMessage(WsType type, String sid, String message, String fromSessionId, String toSessionId) {
         this.type = type;
