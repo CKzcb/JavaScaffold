@@ -1,6 +1,8 @@
 server:
   port: 9090
 spring:
+  profiles:
+    active: sim
   datasource:
     password: Zhuchb@0509
     username: root
