@@ -5,25 +5,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.ckzcb</groupId>
-        <artifactId>JavaScaffold</artifactId>
+        <artifactId>ape-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ape-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>ape-common-web</module>
-        <module>ape-common-mybatisplus</module>
-        <module>ape-common-redis</module>
-        <module>ape-common-log</module>
-        <module>ape-common-ws</module>
-        <module>ape-common-http</module>
-    </modules>
+    <artifactId>ape-common-http</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
