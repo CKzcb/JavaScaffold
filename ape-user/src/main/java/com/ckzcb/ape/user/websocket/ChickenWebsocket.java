@@ -61,6 +61,10 @@ public class ChickenWebsocket {
         logger.info("当前在线人数：{}", onlineCount.get());
         WsMessage message = new WsMessage(WsType.SYSTEM, this.sid, "系统消息：" + userId + "已上线", "", userId);
         sendMessage(message, session);
+        // 发给所有人
+        for (ChickenWebsocket chickenWebsocket : chickenWebsocketMap.getOrDefault(sid, Collections.emptyMap()).values()) {
+            chickenWebsocket.sendMessage(message, chickenWebsocket.session);
+        }
     }
 
     public void sendMessage(WsMessage message, Session session) {
