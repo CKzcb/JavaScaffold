@@ -87,7 +87,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.ckzcb.ApeUserApplication</mainClass>
+                    <mainClass>com.ckzcb.ape.user.UserApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
