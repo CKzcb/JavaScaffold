@@ -7,6 +7,7 @@ com\ckzcb\ape\user\controller\TestController.class
 com\ckzcb\ape\user\entity\dto\UserDto.class
 Test.class
 com\ckzcb\ape\user\service\ConditionService.class
+com\ckzcb\ape\user\controller\TestZk.class
 com\ckzcb\ape\user\mapper\UserMapper.class
 com\ckzcb\ape\user\controller\UserController.class
 com\ckzcb\ape\user\entity\po\User.class

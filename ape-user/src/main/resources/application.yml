@@ -46,3 +46,9 @@ spring:
 user:
   service:
     lock: true
+zookeeper:
+  connect-string: 127.0.0.1:2181
+  session-timeout: 5000
+  connection-timeout: 5000
+  base-sleep-time: 1000
+  max-retries: 3

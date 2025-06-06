@@ -19,6 +19,7 @@
         <module>ape-common-ws</module>
         <module>ape-common-http</module>
         <module>ape-common-test</module>
+        <module>ape-common-zk</module>
     </modules>
 
     <properties>
@@ -26,5 +27,12 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -32,7 +32,6 @@ public class LogAspect {
 
     @PostConstruct
     public void init() {
-        logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---");
     }
 
     // 修正环绕通知
