@@ -12,6 +12,7 @@
         <module>ape-user</module>
         <module>ape-common</module>
         <module>ape-test</module>
+        <module>ape-common/ape-common-job</module>
     </modules>
 
     <properties>
